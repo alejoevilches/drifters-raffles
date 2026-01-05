@@ -1,4 +1,6 @@
-import { Connector, useConnect, useConnectors, useConnection } from 'wagmi'
+"use client"
+
+import { useConnect, useConnectors, useConnection } from 'wagmi'
 import { Raffles } from './Raffles'
 
 export default function ConnectWallet() {

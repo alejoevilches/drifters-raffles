@@ -1,5 +1,3 @@
-"use client"
-
 import Steps from "./components/home/Steps";
 import TechnicalExplanation from "./components/home/TechnicalExplanation";
 import ConnectWallet from "./components/home/ConnectWallet";
