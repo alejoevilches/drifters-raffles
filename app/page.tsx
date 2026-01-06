@@ -21,7 +21,6 @@ export default function Home() {
           <TechnicalExplanation />
         </div>
       </section>
-      <h2 className="text-center text-3xl">Conecta tu wallet para poder ver las raffles disponibles</h2>
       <ConnectWallet />
     </div >
   );
