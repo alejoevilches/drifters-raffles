@@ -1,12 +1,11 @@
-import { useGetRaffles } from "@/app/hooks/useGetRaffles"
-import useGetRafflesData from "@/app/hooks/useGetRafflesData";
+import { useGetRaffles } from "@/app/hooks/useGetRaffles";
+import useGetRafflesCollectionLength from "@/app/hooks/useGetRafflesCollectionLength";
+
 
 export default function RaffleCard() {
-  const { raffles: rafflesData } = useGetRaffles();
-  const { raffles } = useGetRafflesData(rafflesData);
-
+  const { length } = useGetRafflesCollectionLength();
+  const { raffles } = useGetRaffles(length);
   console.log(raffles);
-
   return (
     <p>Holi</p>
   )

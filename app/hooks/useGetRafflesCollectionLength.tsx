@@ -2,10 +2,12 @@ import { useReadContract } from "wagmi"
 import { raffleContract } from "../contracts/raffle"
 
 export default function useGetRafflesCollectionLength() {
-  const { data: rafflesLength, isLoading, error } = useReadContract({
+  const { data, isLoading, error } = useReadContract({
     ...raffleContract,
     functionName: 'getRaffleCollectionLength',
   })
 
-  return { rafflesLength, isLoading, error }
+  const length = data ? Number(data) : 0;
+
+  return { length, isLoading, error }
 }
