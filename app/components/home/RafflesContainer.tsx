@@ -33,12 +33,10 @@ export default function RafflesContainer() {
             </h2>
           </div>
 
-          {/* Descripción */}
           <p className="text-sm text-gray-400 text-center line-clamp-2">
             {raffle.description}
           </p>
 
-          {/* Precio */}
           <div className="flex items-center justify-between mt-2">
             <span className="text-xl font-bold text-gray-100">
               ${raffle.price}
@@ -49,7 +47,7 @@ export default function RafflesContainer() {
                      bg-gray-100 text-gray-900
                      hover:bg-gray-200 transition-colors"
             >
-              Ver más
+              Entrar a la raffle
             </button>
           </div>
         </div>
