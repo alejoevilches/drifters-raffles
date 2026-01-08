@@ -3,7 +3,7 @@ import { raffleContract } from '../contracts/raffle';
 import { useReadContracts } from 'wagmi';
 
 export function useGetRaffles(count: number) {
-  const [raffles, setRaffles] = useState<any>();
+  const [raffles, setRaffles] = useState<Raffle[]>();
   const gateway = "https://moccasin-improved-coyote-773.mypinata.cloud/";
   const calls = useMemo(() => {
     return Array.from({ length: count }).map((_, index) => ({
@@ -13,7 +13,7 @@ export function useGetRaffles(count: number) {
     }));
   }, [count]);
 
-  const { data: rawRaffles, error } = useReadContracts({
+  const { data: rawRaffles, isLoading, error } = useReadContracts({
     contracts: calls
   });
 
@@ -54,5 +54,5 @@ export function useGetRaffles(count: number) {
   }, [rawRaffles]);
 
 
-  return { raffles }
+  return { raffles, isLoading, error }
 }

@@ -4,7 +4,7 @@ import ConnectWallet from "./components/home/ConnectWallet";
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center flex-col text-4xl bg-white text-gray-900 gap-6">
+    <div className="flex min-h-screen items-center flex-col bg-white text-gray-900 gap-6">
       <section className="text-center pt-10">
         <h1>Ahora podes participar de nuestras Raffles a traves de la tecnología Blockchain</h1>
         <p className="text-center text-lg">Drifters da un paso adelante en la forma en la que se trabaja sus ya famosas Raffles y

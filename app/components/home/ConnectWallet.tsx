@@ -1,7 +1,7 @@
 "use client"
 
 import { useConnect, useConnectors, useConnection } from 'wagmi'
-import { Raffles } from './Raffles'
+import { RafflesSection } from './RafflesSection'
 
 export default function ConnectWallet() {
   const { connect } = useConnect()
@@ -10,7 +10,7 @@ export default function ConnectWallet() {
 
   return (
     <>
-      {address && <Raffles />}
+      {address && <RafflesSection />}
       {!address && <section className='flex gap-4 pb-6'>
         {
           connectors.map((connector) => (
