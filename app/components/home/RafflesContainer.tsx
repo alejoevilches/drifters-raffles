@@ -1,16 +1,37 @@
+import { raffleContract } from "@/app/contracts/raffle";
+import { useState } from "react";
 import { useGetRaffles } from "@/app/hooks/useGetRaffles";
 import useGetRafflesCollectionLength from "@/app/hooks/useGetRafflesCollectionLength";
-
+import { useWriteContract, useConnection, useSwitchChain } from 'wagmi'
 
 export default function RafflesContainer() {
+  const [joined, setJoined] = useState(false)
   const { length } = useGetRafflesCollectionLength();
   const { raffles, isLoading } = useGetRaffles(length);
+  const writeContract = useWriteContract();
+  const { address } = useConnection()
+  const { switchChainAsync } = useSwitchChain();
+
 
   if (isLoading) return "Loading...";
 
+  const handleEnterRaffle = async (raffleId: number) => {
+    await switchChainAsync({ chainId: 11155111 });
+    try {
+      writeContract.mutate({
+        ...raffleContract,
+        functionName: "addParticipant",
+        args: [address, raffleId]
+      })
+      setJoined(true);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
   return (
     <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-      {raffles?.map((raffle) => (
+      {raffles?.map((raffle, index) => (
         <div
           key={raffle.model}
           className="group bg-gray-900 border border-gray-800 rounded-xl p-4 flex flex-col gap-4
@@ -46,7 +67,9 @@ export default function RafflesContainer() {
               className="px-4 py-2 text-sm font-medium rounded-md
                      bg-gray-100 text-gray-900
                      hover:bg-gray-200 transition-colors"
+              onClick={() => handleEnterRaffle(index)}
             >
+              {joined && "Ya entraste a esta raffle"}
               Entrar a la raffle
             </button>
           </div>
