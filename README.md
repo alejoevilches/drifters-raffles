@@ -1,36 +1,94 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Drifters Raffles
 
-## Getting Started
+Flagship Web3 raffle platform for **Drifters**, a Buenos Aires sneaker store. Drifters Raffles lets the community connect a wallet, browse raffles sourced from on-chain data + IPFS metadata, and enter transparently via a smart contract on Sepolia.
 
-First, run the development server:
+## ✨ Why this project
+Drifters Raffles is built to make high-demand sneaker raffles fair, verifiable, and community-first. The front-end surfaces live raffle inventory, the contract guarantees the rules, and IPFS keeps metadata immutable.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## ✅ Core features
+- **Wallet-first UX** — connect with injected wallets to unlock raffles.
+- **On-chain raffle discovery** — reads the raffle count + individual raffle data directly from the contract.
+- **IPFS-backed metadata** — product details and imagery are fetched via IPFS gateway.
+- **One-click entry** — users enter raffles through a contract call with clear participation status.
+- **Transparent randomness** — the contract ABI indicates Chainlink VRF usage for winner selection.
+
+## 🧱 Tech stack
+- **Next.js 16** (App Router)
+- **React 19**
+- **Wagmi + Viem** for blockchain interactions
+- **TanStack Query** for data fetching patterns
+- **Tailwind CSS** for styling
+
+## 🧠 How it works
+1. **Connect wallet** using injected providers.
+2. **Load raffle count** from the contract.
+3. **Fetch raffle data** for each index.
+4. **Resolve metadata** from IPFS (via Pinata gateway).
+5. **Enter raffle** with a contract call, while showing participation state.
+
+## 🔗 Smart contract
+- **Network:** Sepolia
+- **Address:** `0x8cdBE6D4DfDd1F179261b49800b3F62a2f9e0C78`
+- **ABI:** `app/contracts/abi/RaffleFactory.json`
+- **Contract config:** `app/contracts/raffle.ts`
+
+If you deploy a new contract, update the address in `app/contracts/raffle.ts` and ensure the ABI matches.
+
+## 📦 Project structure
+```
+app/
+  components/        # UI sections and cards
+  contracts/         # ABI + contract config
+  hooks/             # Wagmi hooks for chain data
+  types/             # Raffle and on-chain types
+config/
+  wagmi.ts           # Chain + connector setup
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Getting started
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Requirements
+- **Node.js 18+**
+- **npm** (or your preferred package manager)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Install
+```bash
+npm install
+```
 
-## Learn More
+### Run locally
+```bash
+npm run dev
+```
+Then open [http://localhost:3000](http://localhost:3000).
 
-To learn more about Next.js, take a look at the following resources:
+### Build & start
+```bash
+npm run build
+npm run start
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Lint
+```bash
+npm run lint
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🧩 Configuration
+- **Chain & connectors:** `config/wagmi.ts`
+- **Contract address:** `app/contracts/raffle.ts`
+- **IPFS gateway:** `app/hooks/useGetRaffles.tsx`
 
-## Deploy on Vercel
+To point at a new IPFS gateway, update the `gateway` value inside `useGetRaffles`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🗺️ Roadmap ideas
+- Multi-network support (mainnet + L2)
+- Admin dashboard for creating raffles
+- Winner reveal UI + transaction history
+- Localization improvements (Spanish/English toggle)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🤝 Contributing
+Pull requests are welcome. If you want to propose a major change, open an issue first so we can align on the vision.
+
+---
+
+**Drifters Raffles** — transparent sneaker raffles, powered by blockchain.
