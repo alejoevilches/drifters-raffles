@@ -21,12 +21,11 @@ export function useGetRaffles(count: number) {
   });
 
   async function fetchRaffles() {
-    console.log(rawRaffles);
 
     try {
       const results = await Promise.all(
         rawRaffles?.map(async (raffle) => {
-          const uri = raffle?.result?.metadataURI; //check this
+          const uri = raffle?.result?.metadataURI;
 
           if (!uri || !uri.startsWith("ipfs://")) {
             return null;

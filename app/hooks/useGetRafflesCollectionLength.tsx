@@ -9,6 +9,5 @@ export default function useGetRafflesCollectionLength() {
   })
 
   const length = data ? Number(data) : 0;
-  console.log('length', length)
   return { length, isLoading, error }
 }

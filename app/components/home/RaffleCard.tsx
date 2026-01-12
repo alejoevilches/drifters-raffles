@@ -61,7 +61,7 @@ export default function RaffleCard({ raffle, raffleIndex }: { raffle: Raffle, ra
         active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
           disabled={participated}
           onClick={() => handleEnterRaffle(raffleIndex)}>
-          {participated ? "Ya estas inscripto" : "Entrar a la raffle"}
+          {participated ? "Ya estas inscripto" : "Ingresá a la raffle"}
         </button>
       </div>
     </div>
