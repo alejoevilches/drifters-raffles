@@ -6,7 +6,7 @@ import { useReadContract, useConnection, useWriteContract } from "wagmi"
 export default function RaffleCard({ raffle, raffleIndex }: { raffle: any, raffleIndex: number }) {
   const { address } = useConnection();
   const writeContract = useWriteContract();
-  const { data, error } = useReadContract({
+  const { data } = useReadContract({
     ...raffleContract,
     functionName: "hasParticipated",
     args: [raffleIndex, address]

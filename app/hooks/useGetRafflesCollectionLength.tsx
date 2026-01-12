@@ -5,7 +5,7 @@ export default function useGetRafflesCollectionLength() {
 
   const { data, isLoading, error } = useReadContract({
     ...raffleContract,
-    chainId: 11155111,
+    chainId: 11155111, //sepolia
     functionName: 'getRaffleCollectionLength',
   })
 

@@ -1,5 +1,4 @@
 "use client"
-
 import { useConnect, useConnectors, useConnection } from 'wagmi'
 import { RafflesSection } from './RafflesSection'
 
