@@ -28,7 +28,6 @@ Drifters Raffles is built to make high-demand sneaker raffles fair, verifiable, 
 
 ## 🔗 Smart contract
 - **Network:** Sepolia
-- **Address:** `0x8cdBE6D4DfDd1F179261b49800b3F62a2f9e0C78`
 - **ABI:** `app/contracts/abi/RaffleFactory.json`
 - **Contract config:** `app/contracts/raffle.ts`
 
