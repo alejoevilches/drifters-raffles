@@ -1,60 +1,76 @@
-"use client"
+"use client";
 
-import { useState, useEffect, useMemo } from 'react';
-import { raffleContract } from '../contracts/raffle';
-import { useReadContracts } from 'wagmi';
+import { useState, useEffect, useMemo } from "react";
+import { useReadContracts } from "wagmi";
+import { raffleContract } from "../contracts/raffle";
+
+type WagmiResult<T> =
+  | { status: "success"; result: T }
+  | { status: "failure"; error: Error };
+
+type RaffleMetadata = {
+  title: string;
+  description: string;
+  image: string;
+};
 
 export function useGetRaffles(count: number) {
-  console.log('count', count)
-  const [raffles, setRaffles] = useState<Raffle[]>();
+  const [raffles, setRaffles] = useState<RaffleMetadata[]>([]);
   const gateway = "https://moccasin-improved-coyote-773.mypinata.cloud/";
-  const calls = useMemo(() => {
-    return Array.from({ length: count }).map((_, index) => ({
-      ...raffleContract,
-      functionName: 'getRaffle',
-      args: [index]
-    }));
-  }, [count]);
 
-  const { data: rawRaffles, isLoading, error } = useReadContracts({
-    contracts: calls
+  const calls = useMemo(
+    () =>
+      Array.from({ length: count }).map((_, index) => ({
+        ...raffleContract,
+        functionName: "getRaffle",
+        args: [index],
+      })),
+    [count]
+  );
+
+  const {
+    data: rawRaffles,
+    isLoading,
+    error,
+  } = useReadContracts({
+    contracts: calls,
   });
 
-  async function fetchRaffles() {
+  async function fetchRaffles(
+    data?: WagmiResult<RaffleOnchain>[]
+  ): Promise<RaffleMetadata[]> {
+    if (!data) return [];
 
-    try {
-      const results = await Promise.all(
-        rawRaffles?.map(async (raffle) => {
-          const uri = raffle?.result?.metadataURI;
+    const results = await Promise.all(
+      data.map(async (raffle) => {
+        if (raffle.status !== "success") return null;
 
-          if (!uri || !uri.startsWith("ipfs://")) {
-            return null;
-          }
+        const uri = raffle.result.metadataURI;
 
-          const cid = uri.replace("ipfs://", "");
-          const url = `${gateway}ipfs/${cid}`;
+        if (!uri || !uri.startsWith("ipfs://")) return null;
 
-          const response = await fetch(url);
-          if (!response.ok) return null;
+        const cid = uri.replace("ipfs://", "");
+        const url = `${gateway}ipfs/${cid}`;
 
-          return await response.json();
-        }) ?? []
-      );
+        const response = await fetch(url);
+        if (!response.ok) return null;
 
-      return results.filter(Boolean);
-    } catch (e) {
-      throw new Error(String(e));
-    }
+        return (await response.json()) as RaffleMetadata;
+      })
+    );
+
+    return results.filter(
+      (r): r is RaffleMetadata => r !== null
+    );
   }
 
   useEffect(() => {
-    const run = async () => {
-      const data = await fetchRaffles();
-      setRaffles(data)
-    };
-    run();
+    if (!rawRaffles) return;
+
+    fetchRaffles(rawRaffles as WagmiResult<RaffleOnchain>[]).then(
+      setRaffles
+    );
   }, [rawRaffles]);
 
-
-  return { raffles, isLoading, error }
+  return { raffles, isLoading, error };
 }
