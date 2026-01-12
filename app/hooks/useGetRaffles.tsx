@@ -8,14 +8,8 @@ type WagmiResult<T> =
   | { status: "success"; result: T }
   | { status: "failure"; error: Error };
 
-type RaffleMetadata = {
-  title: string;
-  description: string;
-  image: string;
-};
-
 export function useGetRaffles(count: number) {
-  const [raffles, setRaffles] = useState<RaffleMetadata[]>([]);
+  const [raffles, setRaffles] = useState<Raffle[]>([]);
   const gateway = "https://moccasin-improved-coyote-773.mypinata.cloud/";
 
   const calls = useMemo(
@@ -38,7 +32,7 @@ export function useGetRaffles(count: number) {
 
   async function fetchRaffles(
     data?: WagmiResult<RaffleOnchain>[]
-  ): Promise<RaffleMetadata[]> {
+  ): Promise<Raffle[]> {
     if (!data) return [];
 
     const results = await Promise.all(
@@ -55,12 +49,12 @@ export function useGetRaffles(count: number) {
         const response = await fetch(url);
         if (!response.ok) return null;
 
-        return (await response.json()) as RaffleMetadata;
+        return (await response.json()) as Raffle;
       })
     );
 
     return results.filter(
-      (r): r is RaffleMetadata => r !== null
+      (r): r is Raffle => r !== null
     );
   }
 
