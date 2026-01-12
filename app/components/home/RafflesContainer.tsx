@@ -11,7 +11,7 @@ export default function RafflesContainer() {
 
   if (isLoading) return <RaffleLoader />;
 
-  if (error) return "Estamos teniendo problemas para mostrarte las raffles. Volve a intentarlo mas tarde."
+  if (error) return "Estamos teniendo problemas para mostrarte las raffles. Volvé a intentarlo más tarde."
 
   return (
     <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">

@@ -3,7 +3,7 @@
 import { raffleContract } from "@/app/contracts/raffle"
 import { useReadContract, useConnection, useWriteContract } from "wagmi"
 
-export default function RaffleCard({ raffle, raffleIndex }: { raffle: any, raffleIndex: number }) {
+export default function RaffleCard({ raffle, raffleIndex }: { raffle: Raffle, raffleIndex: number }) {
   const { address } = useConnection();
   const writeContract = useWriteContract();
   const { data } = useReadContract({
