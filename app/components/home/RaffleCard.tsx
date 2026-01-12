@@ -2,7 +2,6 @@
 
 import { raffleContract } from "@/app/contracts/raffle"
 import { useReadContract, useConnection, useWriteContract } from "wagmi"
-import { useState } from "react"
 
 export default function RaffleCard({ raffle, raffleIndex }: { raffle: any, raffleIndex: number }) {
   const { address } = useConnection();
