@@ -1,8 +1,11 @@
+"use client"
+
 import { useState, useEffect, useMemo } from 'react';
 import { raffleContract } from '../contracts/raffle';
 import { useReadContracts } from 'wagmi';
 
 export function useGetRaffles(count: number) {
+  console.log('count', count)
   const [raffles, setRaffles] = useState<Raffle[]>();
   const gateway = "https://moccasin-improved-coyote-773.mypinata.cloud/";
   const calls = useMemo(() => {
